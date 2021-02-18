@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
+    <div class="container ">
         <div>
-            <h2>Todo List</h2>
+            <h4 class="h4">Liste des tâches</h4>
         </div>
         <add-item v-on:reloadList="getAllItems()" />
         <list-items :items="items" v-on:reloadList="getAllItems()" />

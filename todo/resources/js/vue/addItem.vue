@@ -1,7 +1,21 @@
 <template>
     <div class="addItemContainer">
-        <input type="text" class="inputForm" aria-label="input Item" aria-describedby="input Item" placeholder="Type your todo item" v-model="item.name">
-        <font-awesome-icon icon="plus-square" :class="[item.name ? 'active' : 'inactive', 'plus']" @click="addItem()" />
+        <!-- <input type="text" class="inputForm" aria-label="input Item" aria-describedby="input Item" placeholder="Saisir votre tâche..." v-model="item.name"> -->
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <input type="text" class="form-control inputForm" aria-label="input Item" placeholder="Saisir votre tâche..."  aria-describedby="basic-addon1" v-model="item.name">
+            </div>
+            <div class="col-sm-6 ">
+                <input type="text" class="form-control inputForm" aria-label="input Item" placeholder="Niveau de la tâche"  aria-describedby="basic-addon1" v-model="item.level">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-offset-4 mx-auto">
+                <font-awesome-icon icon="plus-circle" :class="[item.name ? 'active' : 'inactive', 'plus']" @click="addItem()" />
+            </div>
+         </div>
+                
+       
     </div>
 
 </template>

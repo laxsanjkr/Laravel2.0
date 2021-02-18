@@ -15,6 +15,7 @@ class ItemController extends Controller
      */
     public function index()
     {
+        $this->middleware('auth');
         return Item::orderBy('created_at', 'DESC')->get();
     }
 
@@ -36,6 +37,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+        $this->middleware('auth');
         $newItem = new Item;
         $newItem->name = $request->item["name"];
         $newItem->save();
@@ -75,6 +77,7 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->middleware('auth');
         $existItem = Item::findOrFail($id);
 
         if($existItem){
@@ -97,6 +100,7 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
+        $this->middleware('auth');
         $existItem = Item::findOrFail($id);
 
         if($existItem){
