@@ -27,7 +27,7 @@ export default {
     },
     methods: {
         getAllItems(){
-            axios.get('api/items').then(response => {
+            axios.get('api/items?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk').then(response => {
                 this.items = response.data;
             }).catch(error => {
                 console.log(error);

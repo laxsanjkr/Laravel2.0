@@ -13,7 +13,7 @@ export default {
     props: ['item'],
     methods:{
         updateCheck(){
-            axios.put(`api/item/${this.item.id}`, {
+            axios.put(`api/item/${this.item.id}?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk`, {
                 item: this.item
             }).then(response => {
                 if(response.status == 200) {
@@ -24,7 +24,7 @@ export default {
             })
         },
         deleteItem(){
-            axios.delete(`api/item/${this.item.id}`).then(response => {
+            axios.delete(`api/item/${this.item.id}?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk`).then(response => {
                 if(response.status == 200) {
                     this.$emit('itemchanged');
                 }

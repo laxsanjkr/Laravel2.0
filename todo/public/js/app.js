@@ -16417,20 +16417,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -16447,8 +16433,8 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      axios.post('api/item/store', {
-        item: this.item
+      axios.post('api/item/add?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk', {
+        name: this.item.name
       }).then(function (response) {
         if (response.status == 201) {
           _this.item.name = "";
@@ -16456,7 +16442,8 @@ __webpack_require__.r(__webpack_exports__);
           _this.$emit('reloadList');
         }
       })["catch"](function (error) {
-        console.log(error);
+        console.log(error.response);
+        _this.isEditMode = false;
       });
     }
   }
@@ -16506,7 +16493,7 @@ __webpack_require__.r(__webpack_exports__);
     getAllItems: function getAllItems() {
       var _this = this;
 
-      axios.get('api/items').then(function (response) {
+      axios.get('api/items?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk').then(function (response) {
         _this.items = response.data;
       })["catch"](function (error) {
         console.log(error);
@@ -16547,7 +16534,7 @@ __webpack_require__.r(__webpack_exports__);
     updateCheck: function updateCheck() {
       var _this = this;
 
-      axios.put("api/item/".concat(this.item.id), {
+      axios.put("api/item/".concat(this.item.id, "?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk"), {
         item: this.item
       }).then(function (response) {
         if (response.status == 200) {
@@ -16560,7 +16547,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteItem: function deleteItem() {
       var _this2 = this;
 
-      axios["delete"]("api/item/".concat(this.item.id)).then(function (response) {
+      axios["delete"]("api/item/".concat(this.item.id, "?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk")).then(function (response) {
         if (response.status == 200) {
           _this2.$emit('itemchanged');
         }
@@ -53079,86 +53066,49 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "addItemContainer" }, [
-    _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "col-sm-6" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.item.name,
-              expression: "item.name"
-            }
-          ],
-          staticClass: "form-control inputForm",
-          attrs: {
-            type: "text",
-            "aria-label": "input Item",
-            placeholder: "Saisir votre tâche...",
-            "aria-describedby": "basic-addon1"
-          },
-          domProps: { value: _vm.item.name },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.item, "name", $event.target.value)
-            }
+  return _c(
+    "div",
+    { staticClass: "addItemContainer" },
+    [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.item.name,
+            expression: "item.name"
           }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-6 " }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.item.level,
-              expression: "item.level"
-            }
-          ],
-          staticClass: "form-control inputForm",
-          attrs: {
-            type: "text",
-            "aria-label": "input Item",
-            placeholder: "Niveau de la tâche",
-            "aria-describedby": "basic-addon1"
-          },
-          domProps: { value: _vm.item.level },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.item, "level", $event.target.value)
-            }
-          }
-        })
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-offset-4 mx-auto" },
-        [
-          _c("font-awesome-icon", {
-            class: [_vm.item.name ? "active" : "inactive", "plus"],
-            attrs: { icon: "plus-circle" },
-            on: {
-              click: function($event) {
-                return _vm.addItem()
-              }
-            }
-          })
         ],
-        1
-      )
-    ])
-  ])
+        staticClass: "inputForm",
+        attrs: {
+          type: "text",
+          "aria-label": "input Item",
+          "aria-describedby": "input Item",
+          placeholder: "Type your todo item"
+        },
+        domProps: { value: _vm.item.name },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.item, "name", $event.target.value)
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("font-awesome-icon", {
+        class: [_vm.item.name ? "active" : "inactive", "plus"],
+        attrs: { icon: "plus-square" },
+        on: {
+          click: function($event) {
+            return _vm.addItem()
+          }
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

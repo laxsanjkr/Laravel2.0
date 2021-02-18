@@ -19,10 +19,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/items', [ItemController::class, 'index']);
+Route::middleware('auth:api')->get('items', [ItemController::class, 'index'])->name('items');
 
-Route::prefix('/item')->group(function(){
-    Route::post('/store', [ItemController::class, 'store']);
+
+Route::middleware('auth:api')->prefix('/item')->group(function(){
+    Route::post('/add', [ItemController::class, 'store']);
+    Route::get('/{id}', [ItemController::class, 'show']);
     Route::put('/{id}', [ItemController::class, 'update']);
     Route::delete('/{id}', [ItemController::class, 'destroy']);
 });

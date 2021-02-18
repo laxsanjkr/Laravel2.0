@@ -1,21 +1,7 @@
 <template>
     <div class="addItemContainer">
-        <!-- <input type="text" class="inputForm" aria-label="input Item" aria-describedby="input Item" placeholder="Saisir votre tâche..." v-model="item.name"> -->
-        <div class="form-group row">
-            <div class="col-sm-6">
-                <input type="text" class="form-control inputForm" aria-label="input Item" placeholder="Saisir votre tâche..."  aria-describedby="basic-addon1" v-model="item.name">
-            </div>
-            <div class="col-sm-6 ">
-                <input type="text" class="form-control inputForm" aria-label="input Item" placeholder="Niveau de la tâche"  aria-describedby="basic-addon1" v-model="item.level">
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-offset-4 mx-auto">
-                <font-awesome-icon icon="plus-circle" :class="[item.name ? 'active' : 'inactive', 'plus']" @click="addItem()" />
-            </div>
-         </div>
-                
-       
+        <input type="text" class="inputForm" aria-label="input Item" aria-describedby="input Item" placeholder="Type your todo item" v-model="item.name">
+        <font-awesome-icon icon="plus-square" :class="[item.name ? 'active' : 'inactive', 'plus']" @click="addItem()" />
     </div>
 
 </template>
@@ -35,15 +21,16 @@ export default {
                 return;
             }
 
-            axios.post('api/item/store', {
-                item: this.item
+            axios.post('api/item/add?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk', {
+                name: this.item.name
             }).then(response => {
                 if(response.status == 201){
                     this.item.name = "";
                     this.$emit('reloadList');
                 }
             }).catch(error => {
-                console.log(error);
+                console.log(error.response)
+                this.isEditMode = false;
             })
         }
     }

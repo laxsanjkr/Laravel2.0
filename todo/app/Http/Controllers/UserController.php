@@ -1,14 +1,13 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use App\Models\Item;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 
-class ItemController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +18,9 @@ class ItemController extends Controller
     public function index()
     {
         
-        // $user = Auth::user();
+        $user = User::orderBy('created_at', 'DESC')->get();;
         // if (Auth::check()) {
-            return Item::orderBy('created_at', 'DESC')->get();
+            return $user;
         // }
         // else{
         //     return view('home'); 
@@ -33,12 +32,9 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($request)
+    public function create()
     {
-        // dd($request);
-        return Item::create([
-            'name' => $request['name'],
-        ]);
+        //
     }
 
     /**
@@ -49,10 +45,12 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {   
-
-        $newItem = $this->create($request);
+        $newItem = new User;
+        $newItem->name = $request->user["name"];
+        $newItem->save();
 
         return $newItem;
+
     }
 
     /**
@@ -63,7 +61,7 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        $existItem = Item::findOrFail($id);
+        $existItem = User::findOrFail($id);
 
         return $existItem;
 
@@ -89,17 +87,16 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $existItem = Item::findOrFail($id);
+        $existItem = User::findOrFail($id);
 
         if($existItem){
-            $existItem->completed = $request->item['completed'] ? true : false;
-            $existItem->completed_at = $request->item['completed'] ? Carbon::now() : null;
+            $existItem->completed_at = $request->user['updated_at'] ? Carbon::now() : null;
             $existItem->save();
 
             return $existItem;
         }
 
-        return response()->json(["message" => 'Item not found']);
+        return response()->json(["message" => 'User not found']);
 
     }
 
@@ -112,13 +109,13 @@ class ItemController extends Controller
     public function destroy($id)
     {
         $this->middleware('auth');
-        $existItem = Item::findOrFail($id);
+        $existItem = User::findOrFail($id);
 
         if($existItem){
             $existItem->delete();
-            return response()->json(["message" => "Item successfully deleted"]);
+            return response()->json(["message" => "User successfully deleted"]);
         }
 
-        return response()->json(["message" => "Item not found"]);
+        return response()->json(["message" => "User not found"]);
     }
 }
