@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 
 class ItemController extends Controller
@@ -18,14 +19,8 @@ class ItemController extends Controller
 
     public function index()
     {
-        
-        // $user = Auth::user();
-        // if (Auth::check()) {
-            return Item::orderBy('created_at', 'DESC')->get();
-        // }
-        // else{
-        //     return view('home'); 
-        // }
+        $user = Auth::user();
+        return Item::where('idUser',$user['id'])->orderBy('created_at', 'DESC')->get();
     }
 
     /**
@@ -34,10 +29,13 @@ class ItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create($request)
-    {
-        // dd($request);
+    {   
+        // $value = $request->session()->get('key', 'default');
+        // dd($value);
+        $user = Auth::user();
         return Item::create([
             'name' => $request['name'],
+            'idUser' => $user['id']
         ]);
     }
 
@@ -49,7 +47,6 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {   
-
         $newItem = $this->create($request);
 
         return $newItem;

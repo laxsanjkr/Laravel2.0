@@ -16433,7 +16433,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      axios.post('api/item/add?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk', {
+      axios.post("api/item/add?api_token=aaaaaaaaaaa", {
         name: this.item.name
       }).then(function (response) {
         if (response.status == 201) {
@@ -16479,6 +16479,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
+console.log('fd');
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     addItem: _addItem__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -16486,29 +16487,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      items: []
+      items: [],
+      userInfos: []
     };
   },
   methods: {
-    getAllItems: function getAllItems() {
+    getUser: function getUser() {
       var _this = this;
 
-      axios.get('api/items?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk').then(function (response) {
-        _this.items = response.data;
+      axios.get('userInfo').then(function (response) {
+        _this.userInfos = response.data;
+        console.log(_this.userInfos['api_token']);
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    getUser: function getUser() {
+    getAllItems: function getAllItems() {
       var _this2 = this;
 
-      axios.get('userInfo').then(function (response) {
-        _this2.userInfo = response.data;
-        console.log(userInfo);
+      axios.get('api/items?api_token=aaaaaaaaaaa').then(function (response) {
+        _this2.items = response.data;
       })["catch"](function (error) {
         console.log(error);
       });
-      console.log("fonction get user");
     }
   },
   created: function created() {
@@ -16546,7 +16547,7 @@ __webpack_require__.r(__webpack_exports__);
     updateCheck: function updateCheck() {
       var _this = this;
 
-      axios.put("api/item/".concat(this.item.id, "?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk"), {
+      axios.put("api/item/".concat(this.item.id, "?api_token=aaaaaaaaaaa"), {
         item: this.item
       }).then(function (response) {
         if (response.status == 200) {
@@ -16559,7 +16560,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteItem: function deleteItem() {
       var _this2 = this;
 
-      axios["delete"]("api/item/".concat(this.item.id, "?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk")).then(function (response) {
+      axios["delete"]("api/item/".concat(this.item.id, "?api_token=aaaaaaaaaaa")).then(function (response) {
         if (response.status == 200) {
           _this2.$emit('itemchanged');
         }

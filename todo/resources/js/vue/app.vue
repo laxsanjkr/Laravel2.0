@@ -14,7 +14,7 @@
 <script>
 import addItem from "./addItem";
 import listItems from "./listItems";
-
+console.log('fd');
 export default {
     components: {
         addItem,
@@ -22,25 +22,25 @@ export default {
     },
     data: function(){
         return{
-            items: []
+            items: [],
+            userInfos:[],
         }
     },
     methods: {
-        getAllItems(){
-            axios.get('api/items?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk').then(response => {
-                this.items = response.data;
+        getUser(){
+            axios.get('userInfo').then(response => {
+                this.userInfos = response.data;
+                console.log(this.userInfos['api_token']);
             }).catch(error => {
                 console.log(error);
             })
         },
-        getUser(){
-            axios.get('userInfo').then(response => {
-                this.userInfo = response.data;
-                console.log(userInfo);
+            getAllItems(){
+            axios.get('api/items?api_token=aaaaaaaaaaa').then(response => {
+                this.items = response.data;
             }).catch(error => {
                 console.log(error);
             })
-             console.log("fonction get user");
         }
     },
     created(){

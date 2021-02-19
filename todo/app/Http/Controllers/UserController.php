@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 
 class UserController extends Controller
@@ -35,7 +36,6 @@ class UserController extends Controller
 
     public function user()
     {
-        
         $user = Auth::user();
         return $user;
     }

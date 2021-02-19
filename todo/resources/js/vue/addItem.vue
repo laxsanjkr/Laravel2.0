@@ -21,7 +21,7 @@ export default {
                 return;
             }
 
-            axios.post('api/item/add?api_token=owlt6u8FOB6p6SLUANJ5uC87sPG1uOuqqxSgZzv4vYXqtRst9kkhW5AssEpk', {
+            axios.post(`api/item/add?api_token=aaaaaaaaaaa`, {
                 name: this.item.name
             }).then(response => {
                 if(response.status == 201){

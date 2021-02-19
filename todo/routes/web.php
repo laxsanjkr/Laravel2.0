@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SesionController;
 
 
 /*
@@ -26,3 +28,12 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('/'
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');;
 
 Route::get('userInfo', [App\Http\Controllers\UserController::class, 'user'])->name('userInfo')->middleware('auth');;
+
+
+Route::get('userInfo', [App\Http\Controllers\UserController::class, 'user'])->name('userInfo')->middleware('auth');;
+
+Route::middleware('auth')->prefix('/session')->group(function(){
+    Route::get('/set', [SesionController::class, 'setSession']);
+    Route::get('/get', [SesionController::class, 'getSession']);
+    Route::get('/del', [SesionController::class, 'delSession']);
+});
