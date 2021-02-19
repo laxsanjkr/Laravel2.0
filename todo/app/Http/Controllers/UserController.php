@@ -28,13 +28,25 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display User Info .
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function user()
+    {
+        
+        $user = Auth::user();
+        return $user;
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return $user
+     */
     public function create()
     {
-        //
+        $user = User::orderBy('created_at', 'DESC')->get();;
     }
 
     /**
@@ -108,7 +120,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->middleware('auth');
         $existItem = User::findOrFail($id);
 
         if($existItem){

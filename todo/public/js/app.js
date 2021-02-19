@@ -16498,9 +16498,21 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    getUser: function getUser() {
+      var _this2 = this;
+
+      axios.get('userInfo').then(function (response) {
+        _this2.userInfo = response.data;
+        console.log(userInfo);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+      console.log("fonction get user");
     }
   },
   created: function created() {
+    this.getUser();
     this.getAllItems();
   }
 });
@@ -53084,7 +53096,7 @@ var render = function() {
           type: "text",
           "aria-label": "input Item",
           "aria-describedby": "input Item",
-          placeholder: "Type your todo item"
+          placeholder: "Saisir une tâche..."
         },
         domProps: { value: _vm.item.name },
         on: {

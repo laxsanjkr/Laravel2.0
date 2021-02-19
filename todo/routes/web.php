@@ -25,4 +25,4 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('/'
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');;
 
-Route::get('userInfo', [App\Http\Controllers\UserController::class, 'index'])->name('userInfo')->middleware('auth');;
+Route::get('userInfo', [App\Http\Controllers\UserController::class, 'user'])->name('userInfo')->middleware('auth');;

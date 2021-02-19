@@ -32,9 +32,19 @@ export default {
             }).catch(error => {
                 console.log(error);
             })
+        },
+        getUser(){
+            axios.get('userInfo').then(response => {
+                this.userInfo = response.data;
+                console.log(userInfo);
+            }).catch(error => {
+                console.log(error);
+            })
+             console.log("fonction get user");
         }
     },
     created(){
+        this.getUser();
         this.getAllItems();
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="addItemContainer">
-        <input type="text" class="inputForm" aria-label="input Item" aria-describedby="input Item" placeholder="Type your todo item" v-model="item.name">
+        <input type="text" class="inputForm" aria-label="input Item" aria-describedby="input Item" placeholder="Saisir une tâche..." v-model="item.name">
         <font-awesome-icon icon="plus-square" :class="[item.name ? 'active' : 'inactive', 'plus']" @click="addItem()" />
     </div>
 
