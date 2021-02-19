@@ -16418,6 +16418,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['apis'],
   data: function data() {
     return {
       item: {
@@ -16433,7 +16434,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      axios.post("api/item/add?api_token=aaaaaaaaaaa", {
+      axios.post("api/item/add?api_token=" + this.apis.name, {
         name: this.item.name
       }).then(function (response) {
         if (response.status == 201) {
@@ -16479,16 +16480,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
-console.log('fd');
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     addItem: _addItem__WEBPACK_IMPORTED_MODULE_0__.default,
     listItems: _listItems__WEBPACK_IMPORTED_MODULE_1__.default
   },
+  created: function created() {
+    this.getUser();
+    this.getAllItems();
+  },
   data: function data() {
+    codeApi: '';
+
     return {
       items: [],
-      userInfos: []
+      apis: []
     };
   },
   methods: {
@@ -16496,8 +16502,11 @@ console.log('fd');
       var _this = this;
 
       axios.get('userInfo').then(function (response) {
-        _this.userInfos = response.data;
-        console.log(_this.userInfos['api_token']);
+        console.log(_this.user);
+        _this.apis.name = response.data;
+        _this.codeApi = _this.apis.name;
+
+        _this.getAllItems();
       })["catch"](function (error) {
         console.log(error);
       });
@@ -16505,16 +16514,13 @@ console.log('fd');
     getAllItems: function getAllItems() {
       var _this2 = this;
 
-      axios.get('api/items?api_token=aaaaaaaaaaa').then(function (response) {
+      console.log(this.codeApi);
+      axios.get("api/items?api_token=" + this.codeApi).then(function (response) {
         _this2.items = response.data;
       })["catch"](function (error) {
         console.log(error);
       });
     }
-  },
-  created: function created() {
-    this.getUser();
-    this.getAllItems();
   }
 });
 
@@ -16542,12 +16548,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['item'],
+  props: ['item', 'apis'],
   methods: {
     updateCheck: function updateCheck() {
       var _this = this;
 
-      axios.put("api/item/".concat(this.item.id, "?api_token=aaaaaaaaaaa"), {
+      axios.put("api/item/".concat(this.item.id, "?api_token=") + this.apis.name, {
         item: this.item
       }).then(function (response) {
         if (response.status == 200) {
@@ -16560,7 +16566,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteItem: function deleteItem() {
       var _this2 = this;
 
-      axios["delete"]("api/item/".concat(this.item.id, "?api_token=aaaaaaaaaaa")).then(function (response) {
+      axios["delete"]("api/item/".concat(this.item.id, "?api_token=") + this.apis.name).then(function (response) {
         if (response.status == 200) {
           _this2.$emit('itemchanged');
         }
@@ -16595,7 +16601,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['items'],
+  props: ['items', 'apis'],
   components: {
     listItem: _listItem__WEBPACK_IMPORTED_MODULE_0__.default
   }
@@ -53153,6 +53159,7 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("add-item", {
+        attrs: { apis: _vm.apis },
         on: {
           reloadList: function($event) {
             return _vm.getAllItems()
@@ -53161,7 +53168,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("list-items", {
-        attrs: { items: _vm.items },
+        attrs: { apis: _vm.apis, items: _vm.items },
         on: {
           reloadList: function($event) {
             return _vm.getAllItems()
@@ -53302,7 +53309,7 @@ var render = function() {
         { key: index, staticClass: "item" },
         [
           _c("list-item", {
-            attrs: { item: item },
+            attrs: { apis: _vm.apis, item: item },
             on: {
               itemchanged: function($event) {
                 return _vm.$emit("reloadList")

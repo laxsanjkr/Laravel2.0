@@ -37,7 +37,7 @@ class UserController extends Controller
     public function user()
     {
         $user = Auth::user();
-        return $user;
+        return $user['api_token'];
     }
     /**
      * Show the form for creating a new resource.

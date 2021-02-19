@@ -1,7 +1,7 @@
 <template>
 <div class="listView">
     <div v-for="(item, index) in items" :key="index" class="item">
-        <list-item  :item="item" v-on:itemchanged="$emit('reloadList')"/>
+        <list-item :apis="apis"  :item="item" v-on:itemchanged="$emit('reloadList')"/>
     </div>
 </div>
 </template>
@@ -9,7 +9,7 @@
 <script>
 import listItem from "./listItem";
 export default {
-    props: ['items'],
+    props: ['items','apis'],
     components: {listItem}
 }
 </script>

@@ -3,8 +3,8 @@
         <div>
             <h4 class="h4">Liste des tâches</h4>
         </div>
-        <add-item v-on:reloadList="getAllItems()" />
-        <list-items :items="items" v-on:reloadList="getAllItems()" />
+        <add-item :apis="apis" v-on:reloadList="getAllItems()" />
+        <list-items :apis="apis" :items="items" v-on:reloadList="getAllItems()" />
     </div>
 
 
@@ -14,38 +14,42 @@
 <script>
 import addItem from "./addItem";
 import listItems from "./listItems";
-console.log('fd');
 export default {
     components: {
         addItem,
         listItems
     },
+    created(){
+        this.getUser();
+        this.getAllItems();
+    },
     data: function(){
+        codeApi:''
         return{
             items: [],
-            userInfos:[],
+            apis:[],
         }
     },
     methods: {
         getUser(){
             axios.get('userInfo').then(response => {
-                this.userInfos = response.data;
-                console.log(this.userInfos['api_token']);
+                 console.log(this.user);
+
+                this.apis.name = response.data;
+                this.codeApi = this.apis.name;
+                this.getAllItems();
             }).catch(error => {
                 console.log(error);
             })
         },
             getAllItems(){
-            axios.get('api/items?api_token=aaaaaaaaaaa').then(response => {
+            console.log(this.codeApi);
+            axios.get(`api/items?api_token=`+this.codeApi).then(response => {
                 this.items = response.data;
             }).catch(error => {
                 console.log(error);
             })
         }
-    },
-    created(){
-        this.getUser();
-        this.getAllItems();
     }
 }
 </script>

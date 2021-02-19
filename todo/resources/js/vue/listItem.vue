@@ -10,10 +10,10 @@
 
 <script>
 export default {
-    props: ['item'],
+    props: ['item','apis'],
     methods:{
         updateCheck(){
-            axios.put(`api/item/${this.item.id}?api_token=aaaaaaaaaaa`, {
+            axios.put(`api/item/${this.item.id}?api_token=`+this.apis.name, {
                 item: this.item
             }).then(response => {
                 if(response.status == 200) {
@@ -24,7 +24,7 @@ export default {
             })
         },
         deleteItem(){
-            axios.delete(`api/item/${this.item.id}?api_token=aaaaaaaaaaa`).then(response => {
+            axios.delete(`api/item/${this.item.id}?api_token=`+this.apis.name).then(response => {
                 if(response.status == 200) {
                     this.$emit('itemchanged');
                 }

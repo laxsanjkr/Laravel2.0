@@ -8,6 +8,7 @@
 
 <script>
 export default {
+    props:['apis'],
     data: function () {
         return {
             item: {
@@ -21,7 +22,7 @@ export default {
                 return;
             }
 
-            axios.post(`api/item/add?api_token=aaaaaaaaaaa`, {
+            axios.post(`api/item/add?api_token=`+this.apis.name, {
                 name: this.item.name
             }).then(response => {
                 if(response.status == 201){
